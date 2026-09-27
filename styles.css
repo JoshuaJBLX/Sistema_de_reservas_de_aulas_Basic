@@ -1,0 +1,166 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    padding: 20px;
+}
+
+.contenedor {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+h2 {
+    color: #555;
+    margin: 20px 0 15px 0;
+    font-size: 1.2em;
+}
+
+/* Formulario */
+form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+    color: #444;
+}
+
+select, input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Mensajes */
+#mensaje {
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    display: none;
+}
+
+#mensaje.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+    display: block;
+}
+
+#mensaje.exito {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+    display: block;
+}
+
+/* Disponibilidad */
+#disponibilidad {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.aula-disponibilidad {
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.aula-disponibilidad.libre {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+}
+
+.aula-disponibilidad.ocupada {
+    background-color: #ffcdd2;
+    color: #c62828;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+.btn-eliminar {
+    padding: 6px 12px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    width: auto;
+    margin-top: 0;
+}
+
+.btn-eliminar:hover {
+    background-color: #d32f2f;
+}
+
+.sin-reservas {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+}
