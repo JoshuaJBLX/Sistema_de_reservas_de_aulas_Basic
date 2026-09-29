@@ -8,6 +8,9 @@ let reservas = [];
 // Lista de aulas disponibles
 const aulas = ["A101", "A102", "B201", "B202", "C301"];
 
+// Variable para guardar el temporizador del mensaje
+let temporizadorMensaje = null;
+
 // ============================================
 // Funciones de manipulación del DOM
 // ============================================
@@ -21,13 +24,19 @@ function mostrarMensaje(texto, tipo) {
     const mensaje = document.querySelector("#mensaje");
     mensaje.textContent = texto;
     mensaje.className = tipo; // Aplica la clase CSS 'error' o 'exito'
+    mensaje.style.display = "block";
+
+    // Cancelar el temporizador anterior para que no borre este mensaje
+    if (temporizadorMensaje !== null) {
+        clearTimeout(temporizadorMensaje);
+    }
 
     // Ocultar el mensaje después de 4 segundos
-    setTimeout(() => {
+    temporizadorMensaje = setTimeout(() => {
         mensaje.className = "";
         mensaje.style.display = "none";
+        temporizadorMensaje = null;
     }, 4000);
-    mensaje.style.display = "block";
 }
 
 /**
@@ -84,6 +93,9 @@ function registrarReserva(event) {
 
     // Limpiar el formulario
     document.querySelector("#formulario-reserva").reset();
+
+    // Quitar el aviso de tabla vacía
+    actualizarTablaVacia();
 }
 
 /**
@@ -163,6 +175,9 @@ function eliminarReserva(boton) {
     // Actualizar la disponibilidad
     actualizarDisponibilidad();
     mostrarMensaje("Reserva eliminada. El aula está disponible nuevamente.", "exito");
+
+    // Mostrar el aviso si la tabla quedó vacía
+    actualizarTablaVacia();
 }
 
 /**
@@ -179,7 +194,8 @@ function actualizarDisponibilidad() {
         const div = document.createElement("div");
         div.classList.add("aula-disponibilidad");
 
-        // Verificar si el aula tiene al menos una reserva
+        // Verificar si el aula tiene al menos una reserva en cualquier fecha/horario.
+        // Es un indicador general; la validación exacta la hace existeReserva().
         const estaOcupada = reservas.some(function (reserva) {
             return reserva.aula === aula;
         });
@@ -196,6 +212,30 @@ function actualizarDisponibilidad() {
     });
 }
 
+/**
+ * Muestra un aviso en la tabla cuando no hay ninguna reserva registrada
+ */
+function actualizarTablaVacia() {
+    const tbody = document.querySelector("#tabla-reservas");
+    const aviso = tbody.querySelector(".sin-reservas");
+
+    if (reservas.length === 0) {
+        // Si ya existe el aviso, no se crea otro
+        if (aviso === null) {
+            const fila = document.createElement("tr");
+            const td = document.createElement("td");
+            td.classList.add("sin-reservas");
+            td.colSpan = 5;
+            td.textContent = "No hay reservas registradas.";
+            fila.appendChild(td);
+            tbody.appendChild(fila);
+        }
+    } else if (aviso !== null) {
+        // Quitar el aviso porque ya hay reservas
+        aviso.parentElement.remove();
+    }
+}
+
 // ============================================
 // Inicialización de eventos
 // ============================================
@@ -205,3 +245,4 @@ document.querySelector("#formulario-reserva").addEventListener("submit", registr
 
 // Mostrar disponibilidad inicial al cargar la página
 actualizarDisponibilidad();
+actualizarTablaVacia();
